@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuModelDtoWithUserIdAndCategoryName {
+public class MenuModelDtoWithUserIdCategoryNameAndMenuName {
     private Long id;
     private String categoryName;
+    private String menuName;
     private Long userId;
 
 }
