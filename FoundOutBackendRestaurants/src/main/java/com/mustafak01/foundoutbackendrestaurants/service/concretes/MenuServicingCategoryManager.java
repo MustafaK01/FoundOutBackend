@@ -21,6 +21,7 @@ public class MenuServicingCategoryManager implements MenuServicingCategoryServic
 
     @Override
     public ResponseEntity<String> addCategory(MenuServicingCategoryModel categoryModel) {
+
         this.menuServicingCategoryRepository.save(categoryModel);
         return ResponseEntity.ok().body("Added");
     }

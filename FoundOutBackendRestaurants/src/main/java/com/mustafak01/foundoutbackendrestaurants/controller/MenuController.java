@@ -1,11 +1,10 @@
 package com.mustafak01.foundoutbackendrestaurants.controller;
 
 import com.mustafak01.foundoutbackendrestaurants.model.MenuModel;
-import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuModelDtoWithUserIdAndCategoryName;
+import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuModelDtoWithUserIdCategoryNameAndMenuName;
 import com.mustafak01.foundoutbackendrestaurants.model.requests.AddMenuRequest;
 import com.mustafak01.foundoutbackendrestaurants.service.abstracts.MenuService;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +33,7 @@ public class MenuController {
     }*/
 
     @GetMapping("/getMenusByUserId")
-    public ResponseEntity<List<MenuModelDtoWithUserIdAndCategoryName>> getMenusByUserIdWithDto(Long id){
+    public ResponseEntity<List<MenuModelDtoWithUserIdCategoryNameAndMenuName>> getMenusByUserIdWithDto(Long id){
         //System.out.println(this.menuService.getMenuByUserEmail(email).getBody());
         return this.menuService.getMenusByUserId(id);
     }
