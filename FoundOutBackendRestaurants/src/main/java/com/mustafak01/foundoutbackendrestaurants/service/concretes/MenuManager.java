@@ -10,6 +10,7 @@ import com.mustafak01.foundoutbackendrestaurants.repository.MenuServicingCategor
 import com.mustafak01.foundoutbackendrestaurants.repository.UserRepository;
 import com.mustafak01.foundoutbackendrestaurants.service.abstracts.MenuService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +39,7 @@ public class MenuManager implements MenuService {
         menuModel.setMenuServicingCategoryModel(menuServicingCategoryModel);
         menuModel.setUserModel(userModel);
         this.menuRepository.save(menuModel);
-        return ResponseEntity.ok().body("Added");
+        return new ResponseEntity<>("Added", HttpStatus.CREATED);
     }
 
 /*    @Override

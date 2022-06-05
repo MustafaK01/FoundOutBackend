@@ -2,6 +2,7 @@ package com.mustafak01.foundoutbackendrestaurants.service.concretes;
 
 import com.mustafak01.foundoutbackendrestaurants.model.MenuModel;
 import com.mustafak01.foundoutbackendrestaurants.model.MenuServicingModel;
+import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingDto;
 import com.mustafak01.foundoutbackendrestaurants.model.requests.AddServicingToMenuRequest;
 import com.mustafak01.foundoutbackendrestaurants.repository.MenuRepository;
 import com.mustafak01.foundoutbackendrestaurants.repository.MenuServicingRepository;
@@ -39,6 +40,11 @@ public class MenuServicingManager implements MenuServicingService {
             return ResponseEntity.ok().body("Added");
         }
         return ResponseEntity.badRequest().body("Couldnt Added");
+    }
+
+    @Override
+    public ResponseEntity<List<MenuServicingDto>> getMenuServicingsWithDto(Long id) {
+        return ResponseEntity.ok().body(this.menuServicingRepository.getMenuServicingByMenuId(id));
     }
 }
 
