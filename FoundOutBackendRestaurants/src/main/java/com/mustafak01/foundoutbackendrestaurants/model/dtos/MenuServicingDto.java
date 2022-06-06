@@ -14,4 +14,5 @@ public class MenuServicingDto {
     private String servicingPrice;
     private Long menuId;
 
+
 }

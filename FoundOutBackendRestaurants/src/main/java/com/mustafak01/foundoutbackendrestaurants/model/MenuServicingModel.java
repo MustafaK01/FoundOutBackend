@@ -13,7 +13,7 @@ public class MenuServicingModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "menu_servicing_id")
+    @Column(name = "menu_servicing_id",unique = true)
     Long id;
 
     @ManyToOne

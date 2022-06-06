@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -25,26 +26,34 @@ public class MenuServicingManager implements MenuServicingService {
         return ResponseEntity.ok().body(this.menuServicingRepository.findAll());
     }
 
+
+
+
     @Override
     public ResponseEntity<String> addServicing(AddServicingToMenuRequest addServicingToMenuRequest) {
         MenuServicingModel menuServicingModel = new MenuServicingModel();
         //List<MenuModel> menuModels = this.menuRepository.getMenuModelByMenuNameAndUserModel_Id(addServicingToMenuRequest.getMenuName(), addServicingToMenuRequest.getUserId());
         MenuModel menuModel = this.menuRepository.getMenuModelByMenuName(addServicingToMenuRequest.getMenuName());
-        MenuModel menuModel1 = this.menuRepository.getMenuModelByUserModel_Id(addServicingToMenuRequest.getUserId());
-        if(menuModel==menuModel1&&menuModel1!=null){
+//        MenuModel menuModel1 = this.menuRepository.getMenuModelByUserModel_Id(addServicingToMenuRequest.getUserId());
+       // if(menuModel==menuModel1&&menuModel1!=null){
             menuServicingModel.setId(null);
             menuServicingModel.setName(addServicingToMenuRequest.getServicingName());
             menuServicingModel.setPrice(addServicingToMenuRequest.getServicingPrice());
             menuServicingModel.setMenuModel(menuModel);
             this.menuServicingRepository.save(menuServicingModel);
             return ResponseEntity.ok().body("Added");
-        }
-        return ResponseEntity.badRequest().body("Couldnt Added");
+       // }
+       // return ResponseEntity.badRequest().body("Couldnt Added");
     }
 
     @Override
     public ResponseEntity<List<MenuServicingDto>> getMenuServicingsWithDto(Long id) {
         return ResponseEntity.ok().body(this.menuServicingRepository.getMenuServicingByMenuId(id));
+    }
+
+    @Override
+    public ResponseEntity<Long> findTheLastRecord() {
+        return ResponseEntity.ok().body(this.menuServicingRepository.findTopByOrderByIdDesc().getId());
     }
 }
 

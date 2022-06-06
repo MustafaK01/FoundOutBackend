@@ -15,7 +15,7 @@ public class MenuServicingCategoryModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "servicings_category_id")
+    @Column(name = "servicings_category_id",unique = true)
     int serviceId;
 
     @Column(name = "servicings_category_name")

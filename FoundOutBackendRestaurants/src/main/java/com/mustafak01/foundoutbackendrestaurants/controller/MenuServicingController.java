@@ -1,10 +1,8 @@
 package com.mustafak01.foundoutbackendrestaurants.controller;
 
-import com.mustafak01.foundoutbackendrestaurants.model.MenuModel;
 import com.mustafak01.foundoutbackendrestaurants.model.MenuServicingModel;
 import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingDto;
 import com.mustafak01.foundoutbackendrestaurants.model.requests.AddServicingToMenuRequest;
-import com.mustafak01.foundoutbackendrestaurants.service.abstracts.MenuService;
 import com.mustafak01.foundoutbackendrestaurants.service.abstracts.MenuServicingService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,4 +30,8 @@ public class MenuServicingController {
     public ResponseEntity<List<MenuServicingDto>> getServicing(Long id){
         return this.menuServicingService.getMenuServicingsWithDto(id);
    }
+    @GetMapping("/getTheLastRecord")//id yanına başka parametreler de eklenecek
+    public ResponseEntity<Long> getTheLastRecord(){
+        return this.menuServicingService.findTheLastRecord();
+    }
 }

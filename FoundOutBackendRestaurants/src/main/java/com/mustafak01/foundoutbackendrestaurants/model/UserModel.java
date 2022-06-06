@@ -16,19 +16,19 @@ public class UserModel{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_restaurant_id")
+    @Column(name = "user_restaurant_id",unique = true)
     private Long id;
 
     @Column(name = "user_restaurant_password")
     private String password;
 
-    @Column(name = "user_restaurant_email")
+    @Column(name = "user_restaurant_email",unique = true)
     private String email;
 
     @Column(name = "user_restaurant_phoneNumber")
     private String phoneNumber;
 
-    @Column(name = "user_restaurant_title")
+    @Column(name = "user_restaurant_title",unique = true)
     private String title;
 
     @Column(name = "user_restaurant_address")

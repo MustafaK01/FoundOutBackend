@@ -15,7 +15,7 @@ public class MenuModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "menu_id")
+    @Column(name = "menu_id",unique = true)
     Long id;
 
     @ManyToOne

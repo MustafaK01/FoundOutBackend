@@ -11,4 +11,5 @@ public interface MenuServicingService {
     ResponseEntity<List<MenuServicingModel>> getAll();
     ResponseEntity<String> addServicing(AddServicingToMenuRequest addServicingToMenuRequest);
     ResponseEntity<List<MenuServicingDto>> getMenuServicingsWithDto(Long id);
+    ResponseEntity<Long> findTheLastRecord();
 }
