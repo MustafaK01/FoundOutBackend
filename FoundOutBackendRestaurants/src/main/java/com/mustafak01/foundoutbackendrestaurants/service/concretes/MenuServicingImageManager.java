@@ -1,17 +1,15 @@
 package com.mustafak01.foundoutbackendrestaurants.service.concretes;
 
-import com.mustafak01.foundoutbackendrestaurants.model.MenuModel;
 import com.mustafak01.foundoutbackendrestaurants.model.MenuServicingImage;
 import com.mustafak01.foundoutbackendrestaurants.model.MenuServicingModel;
-import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingDto;
 import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingWithImageDto;
 import com.mustafak01.foundoutbackendrestaurants.model.response.ImageUploadResponse;
-import com.mustafak01.foundoutbackendrestaurants.repository.MenuRepository;
 import com.mustafak01.foundoutbackendrestaurants.repository.MenuServicingImageRepository;
 import com.mustafak01.foundoutbackendrestaurants.repository.MenuServicingRepository;
 import com.mustafak01.foundoutbackendrestaurants.service.abstracts.MenuServicingImageService;
 import com.mustafak01.foundoutbackendrestaurants.utils.ImageUtility;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +57,7 @@ public class MenuServicingImageManager implements MenuServicingImageService {
         return ResponseEntity.ok().contentType(MediaType.valueOf(servicingImage.get().getType()))
                 .body(ImageUtility.decompressImage(servicingImage.get().getImage()));
     }
+
     @Override
         public ResponseEntity<MenuServicingWithImageDto> getMenuServicingImageByMenuServicingId(Long id) {
         final List<MenuServicingWithImageDto> servicingImage = servicingImageRepository.getMenuServicingImageByMenuServicingId(id);
@@ -66,12 +65,45 @@ public class MenuServicingImageManager implements MenuServicingImageService {
             for (MenuServicingWithImageDto i : servicingImage) {
                 return ResponseEntity.ok().body(MenuServicingWithImageDto.builder().servicingId(i.getServicingId())
                         .servicingName(i.getServicingName())
+                        .servicingImageId(i.getServicingImageId())
                         .servicingPrice(i.getServicingPrice())
                         .menuId(i.getMenuId())
                         .image(ImageUtility.decompressImage(i.getImage())).build());
             }
         }
             return new ResponseEntity("Bad Request", HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteMenuServicingImageWithMenuServicingById(Long id) {
+        MenuServicingImage menuServicingImage = this.servicingImageRepository.getById(id);
+        MenuServicingWithImageDto menuServicingWithImageDto = this.servicingImageRepository
+                .getByImageId(id);
+        MenuServicingModel menuServicingModel = this.menuServicingRepository
+                .getById(menuServicingWithImageDto.getServicingId());
+        this.servicingImageRepository.delete(menuServicingImage);
+        this.menuServicingRepository.delete(menuServicingModel);
+        System.out.println("Manager "+id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @Override
+    public ResponseEntity<List<MenuServicingWithImageDto>> getMenuServicingByMenuId(Long id) {
+        final List<MenuServicingWithImageDto> servicingImage = servicingImageRepository.getMenuServicingImageByMenuServicingModel_MenuModel_Id(id);
+        final List<MenuServicingWithImageDto> servicingImageTemp = new ArrayList<>();
+        if (servicingImage != null) {
+            for (MenuServicingWithImageDto i : servicingImage) {
+                servicingImageTemp.add(MenuServicingWithImageDto.builder().servicingId(i.getServicingId())
+                        .servicingName(i.getServicingName())
+                        .servicingImageId(i.getServicingImageId())
+                        .servicingPrice(i.getServicingPrice())
+                        .menuId(i.getMenuId())
+                        .image(ImageUtility.decompressImage(i.getImage())).build());
+            }
+            System.out.println(id);
+            return ResponseEntity.ok().body(servicingImageTemp);
+        }
+        return new ResponseEntity("Bad Request", HttpStatus.BAD_REQUEST);
     }
 
 }

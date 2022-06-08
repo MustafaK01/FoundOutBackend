@@ -16,7 +16,19 @@ public interface MenuServicingImageRepository extends JpaRepository<MenuServicin
     Optional<MenuServicingImage> findByName(String name);
     Optional<MenuServicingImage> findByMenuServicingModel_Id(Long id);
 
-    @Query("SELECT new com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingWithImageDto(menuServicingModel.id,menuServicingModel.name,menuServicingModel.price,menuModel.id,menuServicingImage.image)"
+    @Query("SELECT m FROM MenuServicingImage m WHERE m.menuServicingModel.name = :name")
+    MenuServicingImage findByMenuServicingModel_Name(@Param("name")String name);
+
+
+    @Query("SELECT new com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingWithImageDto(menuServicingModel.id,menuServicingImage.servicingImageId,menuServicingModel.name,menuServicingModel.price,menuModel.id,menuServicingImage.image)"
             + "FROM MenuServicingImage menuServicingImage join menuServicingImage.menuServicingModel menuServicingModel join menuServicingImage.menuServicingModel.menuModel menuModel where menuServicingImage.menuServicingModel.id=:id")
     List<MenuServicingWithImageDto> getMenuServicingImageByMenuServicingId(@Param("id")Long id);
+
+    @Query("SELECT new com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingWithImageDto(menuServicingModel.id,menuServicingImage.servicingImageId,menuServicingModel.name,menuServicingModel.price,menuModel.id,menuServicingImage.image)"
+            + "FROM MenuServicingImage menuServicingImage join menuServicingImage.menuServicingModel menuServicingModel join menuServicingImage.menuServicingModel.menuModel menuModel where menuServicingImage.servicingImageId=:id")
+    MenuServicingWithImageDto getByImageId(@Param("id") Long id);
+
+    @Query("SELECT new com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingWithImageDto(menuServicingModel.id,menuServicingImage.servicingImageId,menuServicingModel.name,menuServicingModel.price,menuModel.id,menuServicingImage.image)"
+            + "FROM MenuServicingImage menuServicingImage join menuServicingImage.menuServicingModel menuServicingModel join menuServicingImage.menuServicingModel.menuModel menuModel where menuModel.id=:id")
+    List<MenuServicingWithImageDto> getMenuServicingImageByMenuServicingModel_MenuModel_Id(@Param("id")Long id);
 }

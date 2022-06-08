@@ -36,5 +36,13 @@ public class MenuServicingImageController {
     public ResponseEntity<byte[]> getImage(@PathVariable("id") Long id) throws IOException {
         return this.menuServicingImageService.getImage(id);
     }
-
+    @GetMapping(path = {"/get/image/info/byMenuId/{id}"})
+    public ResponseEntity<List<MenuServicingWithImageDto>> getMenuServicingImageByMenuId(@PathVariable("id") Long id) throws IOException{
+        return this.menuServicingImageService.getMenuServicingByMenuId(id);
+    }
+    @DeleteMapping(path = {"/delete/imageAndServicing/{id}"})
+    public ResponseEntity<Void> deleteMenuServicingImageWithMenuServicing(@PathVariable("id") Long id){
+        System.out.println("Controller : "+id);
+        return this.menuServicingImageService.deleteMenuServicingImageWithMenuServicingById(id);
+    }
 }

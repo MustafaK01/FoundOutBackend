@@ -13,10 +13,12 @@ import lombok.NoArgsConstructor;
 public class MenuServicingWithImageDto {
 
     private Long servicingId;
+    private Long servicingImageId;
     private String servicingName;
     private String servicingPrice;
     private Long menuId;
     private byte[] image;
+
 
 
 }

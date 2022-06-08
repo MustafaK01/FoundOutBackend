@@ -16,4 +16,7 @@ public interface MenuServicingImageService {
 
     ResponseEntity<MenuServicingWithImageDto> getMenuServicingImageByMenuServicingId(Long id);
 
+    ResponseEntity<Void> deleteMenuServicingImageWithMenuServicingById(Long id);
+
+    ResponseEntity<List<MenuServicingWithImageDto>> getMenuServicingByMenuId(Long id);
 }
