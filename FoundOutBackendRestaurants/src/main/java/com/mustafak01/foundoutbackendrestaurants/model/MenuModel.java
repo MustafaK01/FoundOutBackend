@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -30,4 +31,7 @@ public class MenuModel {
     @JoinColumn(name = "user_id")
     UserModel userModel;
 
+    //Sonradan Eklendi
+    @OneToMany(mappedBy = "menuModel",cascade = CascadeType.ALL,orphanRemoval = true)
+    List<MenuServicingModel> menuServicingModels;
 }

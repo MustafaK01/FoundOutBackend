@@ -22,7 +22,11 @@ public class MenuController {
     }
     @PostMapping("/addMenu")
     public ResponseEntity<String> addMenu(@RequestBody AddMenuRequest addMenuRequest){
-        return this.menuService.addCategory(addMenuRequest);
+        return this.menuService.addMenu(addMenuRequest);
+    }
+    @DeleteMapping("/deleteMenu/{id}")
+    public ResponseEntity<Void> deleteMenuByMenuId(@PathVariable("id") Long id){
+        return this.menuService.deleteByMenuId(id);
     }
 
     //Without Dto
@@ -36,5 +40,9 @@ public class MenuController {
     public ResponseEntity<List<MenuModelDtoWithUserIdCategoryNameAndMenuName>> getMenusByUserIdWithDto(Long id){
         //System.out.println(this.menuService.getMenuByUserEmail(email).getBody());
         return this.menuService.getMenusByUserId(id);
+    }
+    @GetMapping("/getMenuNameByMenuId")
+    public ResponseEntity<MenuModelDtoWithUserIdCategoryNameAndMenuName> getMenuNameByMenuId(Long id){
+        return this.menuService.getMenuNameByMenuId(id);
     }
 }

@@ -9,9 +9,13 @@ import java.util.List;
 
 public interface MenuService {
     ResponseEntity<List<MenuModel>> getAll();
-    ResponseEntity<String> addCategory(AddMenuRequest addMenuRequest);
+    ResponseEntity<String> addMenu(AddMenuRequest addMenuRequest);
+
+    ResponseEntity<MenuModelDtoWithUserIdCategoryNameAndMenuName> getMenuNameByMenuId(Long id);
 
     //ResponseEntity<List<MenuModel>> getMenusByUserId(Long id);
     ResponseEntity<List<MenuModelDtoWithUserIdCategoryNameAndMenuName>> getMenusByUserId(Long id);
+
+    ResponseEntity<Void>deleteByMenuId(Long id);
 
 }

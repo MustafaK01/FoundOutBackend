@@ -29,7 +29,7 @@ public class MenuManager implements MenuService {
     }
 
     @Override
-    public ResponseEntity<String> addCategory(AddMenuRequest addMenuRequest) {
+    public ResponseEntity<String> addMenu(AddMenuRequest addMenuRequest) {
         MenuModel menuModel = new MenuModel();
         UserModel userModel = this.userRepository.findByEmail(addMenuRequest.getUserEmail());//it will get the user with userıd(userıd will take from the localstorage)
         MenuServicingCategoryModel menuServicingCategoryModel=this.menuServicingCategoryRepository.//it will get the category with category name
@@ -42,12 +42,23 @@ public class MenuManager implements MenuService {
         return new ResponseEntity<>("Added", HttpStatus.CREATED);
     }
 
-/*    @Override
-    public ResponseEntity<List<MenuModel>> getMenusByUserId(Long id) {
-        return ResponseEntity.ok().body(this.menuRepository.getAllByUserModel_Id(id));
-    }*/
+
+
+
+    @Override
+    public ResponseEntity<MenuModelDtoWithUserIdCategoryNameAndMenuName> getMenuNameByMenuId(Long id) {
+        return ResponseEntity.ok().body(this.menuRepository.getMenuNameByMenuId(id));
+    }
     @Override
     public ResponseEntity<List<MenuModelDtoWithUserIdCategoryNameAndMenuName>> getMenusByUserId(Long id) {
         return ResponseEntity.ok().body(this.menuRepository.getMenuModelAndCategoryNameWithUserId(id));
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteByMenuId(Long id) {
+        MenuModel menuModel = this.menuRepository.getMenuModelById(id);
+        System.out.println("Menu Model "+menuModel.getMenuName() + " " + menuModel.getId());
+        this.menuRepository.deleteById(menuModel.getId());
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }
