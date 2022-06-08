@@ -13,8 +13,12 @@ import java.util.Optional;
 @Repository
 public interface MenuServicingRepository extends JpaRepository<MenuServicingModel,Long> {
 
+    MenuServicingModel findMenuServicingModelById(Long id);
     Optional<MenuServicingModel> findById(Long id);
     MenuServicingModel findTopByOrderByIdDesc();
+
+
+
     @Query("SELECT new com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingDto(menuServicingModel.id,menuServicingModel.name,menuServicingModel.price,menuModel.id)"
             + "FROM MenuServicingModel menuServicingModel join menuServicingModel.menuModel menuModel where menuServicingModel.menuModel.id=:id")
     List<MenuServicingDto> getMenuServicingByMenuId(@Param("id")Long id);

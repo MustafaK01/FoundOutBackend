@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -25,4 +27,8 @@ public class MenuServicingModel {
 
     @Column(name = "servicing_price")
     String price;
+
+    //Sonradan Eklendi
+    @OneToMany(mappedBy = "menuServicingModel",cascade = CascadeType.ALL)
+    List<MenuServicingImage> menuServicingModels;
 }
