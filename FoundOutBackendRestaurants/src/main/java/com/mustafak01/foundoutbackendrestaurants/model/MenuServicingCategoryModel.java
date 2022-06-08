@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -20,4 +21,7 @@ public class MenuServicingCategoryModel {
 
     @Column(name = "servicings_category_name")
     String categoryName;//içecek,yemek,vs
+
+    @OneToMany(mappedBy = "menuServicingCategoryModel",cascade = CascadeType.ALL,orphanRemoval = true)
+    List<MenuModel> menuModels ;
 }

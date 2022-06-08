@@ -1,6 +1,7 @@
 package com.mustafak01.foundoutbackendrestaurants.controller;
 
 import com.mustafak01.foundoutbackendrestaurants.model.MenuServicingCategoryModel;
+import com.mustafak01.foundoutbackendrestaurants.model.dtos.CategoryModelDto;
 import com.mustafak01.foundoutbackendrestaurants.model.requests.AddMenuCategoryRequest;
 import com.mustafak01.foundoutbackendrestaurants.repository.MenuServicingCategoryRepository;
 import com.mustafak01.foundoutbackendrestaurants.service.abstracts.MenuServicingCategoryService;
@@ -17,12 +18,12 @@ public class MenuServicingCategoryController {
     MenuServicingCategoryService menuServicingCategoryService;
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<MenuServicingCategoryModel>> getAll(){
+    public ResponseEntity<List<CategoryModelDto>> getAll(){
         //System.out.println(this.menuServicingCategoryService.getAll());
         return this.menuServicingCategoryService.getAll();
     }
     @PostMapping("/addCategory")
-    public ResponseEntity<String> addMenu(@RequestBody AddMenuCategoryRequest addMenuCategoryRequest){
+    public ResponseEntity<String> addMenuCategory(@RequestBody AddMenuCategoryRequest addMenuCategoryRequest){
         MenuServicingCategoryModel menuServicingCategoryModel = new MenuServicingCategoryModel();
         menuServicingCategoryModel.setServiceId(addMenuCategoryRequest.getId());
         menuServicingCategoryModel.setCategoryName(addMenuCategoryRequest.getCategoryName());

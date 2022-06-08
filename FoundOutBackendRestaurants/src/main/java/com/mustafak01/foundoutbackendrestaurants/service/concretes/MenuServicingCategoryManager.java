@@ -1,6 +1,7 @@
 package com.mustafak01.foundoutbackendrestaurants.service.concretes;
 
 import com.mustafak01.foundoutbackendrestaurants.model.MenuServicingCategoryModel;
+import com.mustafak01.foundoutbackendrestaurants.model.dtos.CategoryModelDto;
 import com.mustafak01.foundoutbackendrestaurants.repository.MenuServicingCategoryRepository;
 import com.mustafak01.foundoutbackendrestaurants.service.abstracts.MenuServicingCategoryService;
 import lombok.AllArgsConstructor;
@@ -15,8 +16,8 @@ public class MenuServicingCategoryManager implements MenuServicingCategoryServic
 
     MenuServicingCategoryRepository menuServicingCategoryRepository;
     @Override
-    public ResponseEntity<List<MenuServicingCategoryModel>> getAll() {
-        return ResponseEntity.ok().body(this.menuServicingCategoryRepository.findAll());
+    public ResponseEntity<List<CategoryModelDto>> getAll() {
+        return ResponseEntity.ok().body(this.menuServicingCategoryRepository.getAllCategories());
     }
 
     @Override
