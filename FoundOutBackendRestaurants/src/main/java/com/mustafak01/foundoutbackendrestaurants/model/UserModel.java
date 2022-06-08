@@ -4,6 +4,7 @@ package com.mustafak01.foundoutbackendrestaurants.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 /*@Getter
 @Setter*/
@@ -34,6 +35,8 @@ public class UserModel{
     @Column(name = "user_restaurant_address")
     private String address;
 
+    @OneToMany(mappedBy = "userModel",cascade = CascadeType.ALL,orphanRemoval = true)
+    List<MenuModel> menuModels;
 
     public UserModel(Long id, String password,String email) {
         this.id = id;
