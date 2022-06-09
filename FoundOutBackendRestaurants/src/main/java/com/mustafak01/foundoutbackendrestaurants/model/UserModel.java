@@ -20,8 +20,8 @@ public class UserModel{
     @Column(name = "user_restaurant_id",unique = true)
     private Long id;
 
-    @Column(name = "user_restaurant_password")
-    private String password;
+    @Column(name = "restaurant_owner_identitynumber")
+    private String restaurantOwnerIdentityNumber;
 
     @Column(name = "user_restaurant_email",unique = true)
     private String email;
@@ -32,11 +32,16 @@ public class UserModel{
     @Column(name = "user_restaurant_title",unique = true)
     private String title;
 
-    @Column(name = "user_restaurant_address")
-    private String address;
+    @Column(name = "user_restaurant_password")
+    private String password;
+
+
 
     @OneToMany(mappedBy = "userModel",cascade = CascadeType.ALL,orphanRemoval = true)
     List<MenuModel> menuModels;
+
+/*    @OneToOne(mappedBy = "userModel",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
+    LocationModel locationModels;*/
 
     public UserModel(Long id, String password,String email) {
         this.id = id;
