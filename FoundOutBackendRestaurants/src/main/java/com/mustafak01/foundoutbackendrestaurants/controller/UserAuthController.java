@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/auth")
 @AllArgsConstructor
-public class UserRegistrationController {
+public class UserAuthController {
 
     private final RegistrationService registrationService;
     private final LoginService loginService;
 
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponseRegister> register(@RequestBody RegistrationRequest registrationRequest){
-        log.info(String.format("Registered %s",registrationRequest));
+    public ResponseEntity<AuthResponseRegister> register(@RequestBody RegistrationRequest registrationRequest) throws Exception {
+        log.info(String.format("%s",registrationRequest));
         return registrationService.saveUser(registrationRequest);
     }
     @PostMapping("/login")
