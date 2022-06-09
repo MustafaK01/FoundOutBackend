@@ -56,8 +56,8 @@ public class MenuServicingManager implements MenuServicingService {
     }
 
     @Override
-    public ResponseEntity<Long> findTheLastRecord() {
-        return ResponseEntity.ok().body(this.menuServicingRepository.findTopByOrderByIdDesc().getId());
+    public ResponseEntity<Long> findTheLastRecord(Long id) {
+        return ResponseEntity.ok().body(this.menuServicingRepository.findLastRecordByUserId(id));
     }
 
     @Override

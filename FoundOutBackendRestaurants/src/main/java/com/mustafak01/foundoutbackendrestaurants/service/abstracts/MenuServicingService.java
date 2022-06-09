@@ -12,7 +12,7 @@ public interface MenuServicingService {
     ResponseEntity<List<MenuServicingModel>> getAll();
     ResponseEntity<String> addServicing(AddServicingToMenuRequest addServicingToMenuRequest);
     ResponseEntity<List<MenuServicingDto>> getMenuServicingsWithDto(Long id);
-    ResponseEntity<Long> findTheLastRecord();
+    ResponseEntity<Long> findTheLastRecord(Long id);
     ResponseEntity<Void> updateServicingByServicingId(Long id, UpdateServicingRequest updateServicingRequest);
 
     ResponseEntity<Void> deleteServicingByServicingId(Long id);

@@ -31,9 +31,9 @@ public class MenuServicingController {
     public ResponseEntity<List<MenuServicingDto>> getServicing(Long id){
         return this.menuServicingService.getMenuServicingsWithDto(id);
    }
-    @GetMapping("/getTheLastRecord")
-    public ResponseEntity<Long> getTheLastRecord(){
-        return this.menuServicingService.findTheLastRecord();
+    @GetMapping("/getLastRecord/{id}")
+    public ResponseEntity<Long> getTheLastRecord(@PathVariable Long id){
+        return this.menuServicingService.findTheLastRecord(id);
     }
 
     @PutMapping("/update/{id}")

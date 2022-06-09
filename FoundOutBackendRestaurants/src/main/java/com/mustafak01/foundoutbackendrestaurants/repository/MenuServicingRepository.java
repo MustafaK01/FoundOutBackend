@@ -14,10 +14,18 @@ import java.util.Optional;
 public interface MenuServicingRepository extends JpaRepository<MenuServicingModel,Long> {
 
     MenuServicingModel findMenuServicingModelById(Long id);
+
     Optional<MenuServicingModel> findById(Long id);
+
     MenuServicingModel findTopByOrderByIdDesc();
 
+/*    @Query("SELECT new com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingDto(menuServicingModel.id,menuServicingModel.name,menuServicingModel.price,menuModel.id),max(menuServicingModel.id)"
+            + " FROM MenuServicingModel menuServicingModel join menuServicingModel.menuModel menuModel where menuServicingModel.menuModel.userModel.id=:id")
+    MenuServicingDto findLastRecordByUserId(@Param("id")Long id);*/
 
+    @Query("SELECT max(menuServicingModel.id)"
+            + " FROM MenuServicingModel menuServicingModel join menuServicingModel.menuModel menuModel where menuServicingModel.menuModel.userModel.id=:id")
+    Long findLastRecordByUserId(@Param("id")Long id);
 
     @Query("SELECT new com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingDto(menuServicingModel.id,menuServicingModel.name,menuServicingModel.price,menuModel.id)"
             + "FROM MenuServicingModel menuServicingModel join menuServicingModel.menuModel menuModel where menuServicingModel.menuModel.id=:id")
