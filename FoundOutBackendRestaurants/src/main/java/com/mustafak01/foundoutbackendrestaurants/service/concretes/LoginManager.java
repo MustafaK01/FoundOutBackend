@@ -23,6 +23,7 @@ public class LoginManager implements LoginService {
         UserModel userModel = userRepository.findByEmail(loginRequest.getEmail());
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword());
+        //getUserModelById(For Restaurant Name)
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwtToken = tokenProviderJwt.generateToken(authentication);
@@ -31,8 +32,9 @@ public class LoginManager implements LoginService {
         authResponse.setSuccess(true);
         authResponse.setToken(jwtToken);
         authResponse.setMessage("Succesfully Logged In");
-        authResponse.setUserId(userModel.getId());
         authResponse.setEmail(userModel.getEmail());
+        authResponse.setUserId(userModel.getId());
+        authResponse.setRestaurantName(userModel.getTitle());
         authResponse.setExpirationDate(expirationDate);
         return authResponse;
     }

@@ -13,5 +13,6 @@ public class AuthResponseLogin {
     Long userId;
     Long expirationDate;
     String email;
+    String restaurantName;
     boolean isSuccess;
 }
