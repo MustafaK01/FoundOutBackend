@@ -16,4 +16,5 @@ public class AddServicingToMenuRequest {
     private final String servicingName;
     private final String servicingPrice;
     private final String menuName;
+    private final String explanation;
 }

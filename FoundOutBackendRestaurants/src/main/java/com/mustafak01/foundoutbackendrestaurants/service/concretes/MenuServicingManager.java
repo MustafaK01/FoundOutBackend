@@ -41,6 +41,7 @@ public class MenuServicingManager implements MenuServicingService {
 //        MenuModel menuModel1 = this.menuRepository.getMenuModelByUserModel_Id(addServicingToMenuRequest.getUserId());
        // if(menuModel==menuModel1&&menuModel1!=null){
             menuServicingModel.setId(null);
+            menuServicingModel.setExplanation(addServicingToMenuRequest.getExplanation());
             menuServicingModel.setName(addServicingToMenuRequest.getServicingName());
             menuServicingModel.setPrice(addServicingToMenuRequest.getServicingPrice());
             menuServicingModel.setMenuModel(menuModel);
