@@ -28,6 +28,7 @@ public class UserDetailsJwt implements UserDetails {
 
     public static UserDetailsJwt create(UserModel userModel){
         List<GrantedAuthority> authorityList  = new ArrayList<>();
+        //authorityList.add(new SimpleGrantedAuthority("restaurant"));
         authorityList.add(new SimpleGrantedAuthority("user"));
         return new UserDetailsJwt(userModel.getId(), userModel.getEmail(),
                 userModel.getPassword(),

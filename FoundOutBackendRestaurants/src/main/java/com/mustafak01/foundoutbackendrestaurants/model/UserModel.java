@@ -35,10 +35,15 @@ public class UserModel{
     @Column(name = "user_restaurant_password")
     private String password;
 
+    @OneToMany(mappedBy = "userModel",cascade = CascadeType.ALL,orphanRemoval = true)
+    List<MenuModel> menuModels;
+
+//    @OneToMany(mappedBy = "userModel",cascade = CascadeType.ALL,orphanRemoval = true)
+//    List<CommentModel> commentModels;
 
 
     @OneToMany(mappedBy = "userModel",cascade = CascadeType.ALL,orphanRemoval = true)
-    List<MenuModel> menuModels;
+    List<UserModelImage> userModelImages;
 
 /*    @OneToOne(mappedBy = "userModel",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
     LocationModel locationModels;*/
