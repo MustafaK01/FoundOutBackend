@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/api/auth/**")
+                .antMatchers("/api/auth/**","/api/comment/**","/api/user/**","/api/addresses/**")
                 .permitAll()
                 .anyRequest().authenticated();// Requires authentication from everything except "/api/registration/**"
         http.addFilterBefore(this.jwtAuthenticationFilter(),UsernamePasswordAuthenticationFilter.class);

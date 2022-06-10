@@ -52,18 +52,18 @@ public class RegistrationManager implements RegistrationService {
             return new ResponseEntity<>(authResponse, HttpStatus.BAD_REQUEST);
         };//400
 
-            KPSPublicSoap kpsPublicSoap = new KPSPublicSoap();
-            Boolean isExists = kpsPublicSoap.TCKimlikNoDogrula(
-                    Long.parseLong(registrationRequest.getRestaurantOwnerIdentityNumber())
-                    ,registrationRequest.getRestaurantOwnerName().toUpperCase()
-                    ,registrationRequest.getRestaurantOwnerLastName().toUpperCase()
-                    ,registrationRequest.getBirthYear());
+//            KPSPublicSoap kpsPublicSoap = new KPSPublicSoap();
+//            Boolean isExists = kpsPublicSoap.TCKimlikNoDogrula(
+//                    Long.parseLong(registrationRequest.getRestaurantOwnerIdentityNumber())
+//                    ,registrationRequest.getRestaurantOwnerName().toUpperCase()
+//                    ,registrationRequest.getRestaurantOwnerLastName().toUpperCase()
+//                    ,registrationRequest.getBirthYear());
 
-            if (!isExists) {
-                authResponse.setMessage("Böyle Bir Kişi Bulunmuyor");
-                authResponse.setSuccess(false);
-                return new ResponseEntity<>(authResponse, HttpStatus.NOT_ACCEPTABLE);//406
-            }
+//            if (!isExists) {
+//                authResponse.setMessage("Böyle Bir Kişi Bulunmuyor");
+//                authResponse.setSuccess(false);
+//                return new ResponseEntity<>(authResponse, HttpStatus.NOT_ACCEPTABLE);//406
+//            }
 
             UserModel user = new UserModel();
             user.setEmail(registrationRequest.getEmail());
