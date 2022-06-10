@@ -16,4 +16,5 @@ public class AddMenuRequest {
     private String menuName;
     private String categoryName;
     private String userEmail;
+    private String explanation;
 }

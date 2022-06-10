@@ -24,11 +24,13 @@ public class MenuModel {
     MenuServicingCategoryModel menuServicingCategoryModel;
 
     //Menü Adının Tutulduğu Tablo Ayrılabilir.
-    @Column(name = "menu_name")
+    @Column(name = "menu_name",unique = true,nullable = false)
     String menuName;
 
+    @Column(name = "menu_explanation")
+    String explanation;
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id",nullable = false,unique = false)
     UserModel userModel;
 
     //Sonradan Eklendi
