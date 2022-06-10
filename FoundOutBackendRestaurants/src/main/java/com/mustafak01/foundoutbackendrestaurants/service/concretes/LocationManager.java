@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class LocationManager implements LocationService {
@@ -29,5 +31,9 @@ public class LocationManager implements LocationService {
     @Override
     public ResponseEntity<LocationModel> getByRestaurantName(String restaurantName) {
         return ResponseEntity.ok().body(this.locationRepository.getByRestaurantName(restaurantName));
+    }
+    @Override
+    public ResponseEntity<List<LocationModel>> getAll() {
+        return ResponseEntity.ok().body(this.locationRepository.findAll());
     }
 }
