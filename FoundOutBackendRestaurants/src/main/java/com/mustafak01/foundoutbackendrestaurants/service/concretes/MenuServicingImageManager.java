@@ -2,10 +2,13 @@ package com.mustafak01.foundoutbackendrestaurants.service.concretes;
 
 import com.mustafak01.foundoutbackendrestaurants.model.MenuServicingImage;
 import com.mustafak01.foundoutbackendrestaurants.model.MenuServicingModel;
+import com.mustafak01.foundoutbackendrestaurants.model.UserModel;
+import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingImageDtoForMobile;
 import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingWithImageDto;
 import com.mustafak01.foundoutbackendrestaurants.model.response.ImageUploadResponse;
 import com.mustafak01.foundoutbackendrestaurants.repository.MenuServicingImageRepository;
 import com.mustafak01.foundoutbackendrestaurants.repository.MenuServicingRepository;
+import com.mustafak01.foundoutbackendrestaurants.repository.UserRepository;
 import com.mustafak01.foundoutbackendrestaurants.service.abstracts.MenuServicingImageService;
 import com.mustafak01.foundoutbackendrestaurants.utils.ImageUtility;
 import lombok.AllArgsConstructor;
@@ -27,6 +30,8 @@ public class MenuServicingImageManager implements MenuServicingImageService {
 
     MenuServicingImageRepository servicingImageRepository;
     MenuServicingRepository menuServicingRepository;
+
+    UserRepository userRepository;
 
     @Override
     public ResponseEntity<ImageUploadResponse> uploadImage(MultipartFile file,Long id) throws IOException {
@@ -104,6 +109,48 @@ public class MenuServicingImageManager implements MenuServicingImageService {
             return ResponseEntity.ok().body(servicingImageTemp);
         }
         return new ResponseEntity("Bad Request", HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    public ResponseEntity<List<MenuServicingImageDtoForMobile>> getMenuServicingImageByTitle(String title) {
+        UserModel userModel= this.userRepository.findByTitle(title);
+        final List<MenuServicingImageDtoForMobile> servicingImageTemp = new ArrayList<>();
+        List<MenuServicingImageDtoForMobile> menuServicingImageDtoForMobile
+               =this.servicingImageRepository.getMenuServicingImageByUserIdForMobile(userModel.getId());
+        return getListResponseEntity(servicingImageTemp, menuServicingImageDtoForMobile);
+    }
+
+    @Override
+    public ResponseEntity<List<MenuServicingImageDtoForMobile>> getMenuServicingImageByTitleAndMenuName(String title, String menuName) {
+        UserModel userModel= this.userRepository.findByTitle(title);
+        final List<MenuServicingImageDtoForMobile> servicingImageTemp = new ArrayList<>();
+        List<MenuServicingImageDtoForMobile> menuServicingImageDtoForMobile
+                =this.servicingImageRepository.getMenuServicingImageByUserIdAndMenuName(userModel.getId(),menuName);
+        return getListResponseEntity(servicingImageTemp, menuServicingImageDtoForMobile);
+    }
+
+    @Override
+    public ResponseEntity<List<MenuServicingImageDtoForMobile>> getMenuServicingImageByTitleAndMenuId(String title, Long menuId) {
+        UserModel userModel= this.userRepository.findByTitle(title);
+        final List<MenuServicingImageDtoForMobile> servicingImageTemp = new ArrayList<>();
+        List<MenuServicingImageDtoForMobile> menuServicingImageDtoForMobile
+                =this.servicingImageRepository.getMenuServicingImageByUserIdAndMenuId(userModel.getId(),menuId);
+        return getListResponseEntity(servicingImageTemp, menuServicingImageDtoForMobile);
+    }
+
+    private ResponseEntity<List<MenuServicingImageDtoForMobile>> getListResponseEntity(List<MenuServicingImageDtoForMobile> servicingImageTemp, List<MenuServicingImageDtoForMobile> menuServicingImageDtoForMobile) {
+        if (menuServicingImageDtoForMobile != null) {
+            for (MenuServicingImageDtoForMobile i : menuServicingImageDtoForMobile) {
+                servicingImageTemp.add(MenuServicingImageDtoForMobile.builder()
+                        .servicingName(i.getServicingName())
+                        .servicingPrice(i.getServicingPrice())
+                        .explanation(i.getExplanation())
+                        .menuName(i.getMenuName())
+                        .image(ImageUtility.decompressImage(i.getImage())).build());
+            }
+            return ResponseEntity.ok().body(servicingImageTemp);
+        }
+        return new ResponseEntity("Resim Getirilemedi", HttpStatus.BAD_REQUEST);
     }
 
 }

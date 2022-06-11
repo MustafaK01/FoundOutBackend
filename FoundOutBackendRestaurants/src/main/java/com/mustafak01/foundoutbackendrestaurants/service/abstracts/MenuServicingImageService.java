@@ -1,6 +1,7 @@
 package com.mustafak01.foundoutbackendrestaurants.service.abstracts;
 
 import com.mustafak01.foundoutbackendrestaurants.model.MenuServicingImage;
+import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingImageDtoForMobile;
 import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingWithImageDto;
 import com.mustafak01.foundoutbackendrestaurants.model.response.ImageUploadResponse;
 import org.springframework.http.ResponseEntity;
@@ -19,4 +20,11 @@ public interface MenuServicingImageService {
     ResponseEntity<Void> deleteMenuServicingImageWithMenuServicingById(Long id);
 
     ResponseEntity<List<MenuServicingWithImageDto>> getMenuServicingByMenuId(Long id);
+
+    ResponseEntity<List<MenuServicingImageDtoForMobile>> getMenuServicingImageByTitle(String title);
+
+    ResponseEntity<List<MenuServicingImageDtoForMobile>> getMenuServicingImageByTitleAndMenuName(String title,String menuName);
+
+    ResponseEntity<List<MenuServicingImageDtoForMobile>> getMenuServicingImageByTitleAndMenuId(String title,Long menuId);
+
 }
