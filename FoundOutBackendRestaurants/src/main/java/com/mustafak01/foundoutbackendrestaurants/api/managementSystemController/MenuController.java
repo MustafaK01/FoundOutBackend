@@ -1,4 +1,4 @@
-package com.mustafak01.foundoutbackendrestaurants.controller;
+package com.mustafak01.foundoutbackendrestaurants.api.managementSystemController;
 
 import com.mustafak01.foundoutbackendrestaurants.model.MenuModel;
 import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuModelDtoWithUserIdCategoryNameAndMenuName;
@@ -20,6 +20,7 @@ public class MenuController {
     public ResponseEntity<List<MenuModel>> getAll(){
         return this.menuService.getAll();
     }
+
     @PostMapping("/addMenu")
     public ResponseEntity<String> addMenu(@RequestBody AddMenuRequest addMenuRequest){
         return this.menuService.addMenu(addMenuRequest);

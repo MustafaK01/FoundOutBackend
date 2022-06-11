@@ -1,4 +1,4 @@
-package com.mustafak01.foundoutbackendrestaurants.controller;
+package com.mustafak01.foundoutbackendrestaurants.api.managementSystemController;
 
 import com.mustafak01.foundoutbackendrestaurants.model.MenuServicingCategoryModel;
 import com.mustafak01.foundoutbackendrestaurants.model.dtos.CategoryModelDto;

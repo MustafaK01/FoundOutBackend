@@ -1,4 +1,4 @@
-package com.mustafak01.foundoutbackendrestaurants.controller;
+package com.mustafak01.foundoutbackendrestaurants.api.managementSystemController;
 
 
 import com.mustafak01.foundoutbackendrestaurants.model.LocationModel;
@@ -28,7 +28,7 @@ public class LocationController {
         return this.locationService.getAll();
     }
 
-    @GetMapping("/getByRestaurantNameWithDto")
+    /*@GetMapping("/getByRestaurantNameWithDto")
     public ResponseEntity<LocationDto> getByRestaurantNameWithDto(String restaurantName){
         return this.locationService.getByRestaurantNameWithDto(restaurantName);
     }
@@ -36,5 +36,5 @@ public class LocationController {
     @GetMapping("/getAllWithDto")
     public ResponseEntity<List<LocationDto>> getAllWithDto(){
         return this.locationService.getAllWithDto();
-    }
+    }*/
 }

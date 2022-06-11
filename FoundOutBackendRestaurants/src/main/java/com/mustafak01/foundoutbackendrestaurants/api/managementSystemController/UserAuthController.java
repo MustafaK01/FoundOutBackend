@@ -1,4 +1,4 @@
-package com.mustafak01.foundoutbackendrestaurants.controller;
+package com.mustafak01.foundoutbackendrestaurants.api.managementSystemController;
 
 import com.mustafak01.foundoutbackendrestaurants.model.response.AuthResponseLogin;
 import com.mustafak01.foundoutbackendrestaurants.model.requests.LoginRequest;

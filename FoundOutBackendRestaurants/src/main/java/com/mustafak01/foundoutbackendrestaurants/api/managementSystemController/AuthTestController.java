@@ -1,4 +1,4 @@
-package com.mustafak01.foundoutbackendrestaurants.controller;
+package com.mustafak01.foundoutbackendrestaurants.api.managementSystemController;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

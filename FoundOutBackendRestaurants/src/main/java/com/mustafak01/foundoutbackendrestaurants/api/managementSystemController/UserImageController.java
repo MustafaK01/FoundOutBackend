@@ -1,4 +1,4 @@
-package com.mustafak01.foundoutbackendrestaurants.controller;
+package com.mustafak01.foundoutbackendrestaurants.api.managementSystemController;
 
 
 import com.mustafak01.foundoutbackendrestaurants.model.response.ImageUploadResponse;
@@ -13,7 +13,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/api/users/images")
 @AllArgsConstructor
-public class UserImageController {
+public class UserImageController { //Management sisteminden gelecek olan resimler için
 
     UserImageService userImageService;
 
