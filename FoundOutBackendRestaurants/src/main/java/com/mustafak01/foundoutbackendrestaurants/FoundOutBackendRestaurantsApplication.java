@@ -11,7 +11,7 @@ public class FoundOutBackendRestaurantsApplication {
 	public static void main(String[] args) throws Exception {
 //		KPSPublicSoap client = new KPSPublicSoap();
 //		Long tc = 65879865658L;
-//		Boolean isTrue = client.TCKimlikNoDogrula(00000000000L,"İSİM","SOYİSİM",DOGUM_TARİHİ);
+//		Boolean isTrue = client.TCKimlikNoDogrula(00000000000L,"İSİM","DOĞUMTARİHİ");
 //		System.out.println(isTrue);
 		SpringApplication.run(FoundOutBackendRestaurantsApplication.class, args);
 	}
