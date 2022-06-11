@@ -2,6 +2,7 @@ package com.mustafak01.foundoutbackendrestaurants.service.concretes;
 
 import com.mustafak01.foundoutbackendrestaurants.model.LocationModel;
 import com.mustafak01.foundoutbackendrestaurants.model.UserModel;
+import com.mustafak01.foundoutbackendrestaurants.model.dtos.LocationDto;
 import com.mustafak01.foundoutbackendrestaurants.repository.LocationRepository;
 import com.mustafak01.foundoutbackendrestaurants.service.abstracts.LocationService;
 import lombok.AllArgsConstructor;
@@ -35,5 +36,15 @@ public class LocationManager implements LocationService {
     @Override
     public ResponseEntity<List<LocationModel>> getAll() {
         return ResponseEntity.ok().body(this.locationRepository.findAll());
+    }
+
+    @Override
+    public ResponseEntity<LocationDto> getByRestaurantNameWithDto(String restaurantNam) {
+        return ResponseEntity.ok().body(this.locationRepository.getByRestaurantNameWithDto(restaurantNam));
+    }
+
+    @Override
+    public ResponseEntity<List<LocationDto>> getAllWithDto() {
+        return ResponseEntity.ok().body(this.locationRepository.getByAllWithDto());
     }
 }

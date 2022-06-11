@@ -2,6 +2,7 @@ package com.mustafak01.foundoutbackendrestaurants.controller;
 
 
 import com.mustafak01.foundoutbackendrestaurants.model.LocationModel;
+import com.mustafak01.foundoutbackendrestaurants.model.dtos.LocationDto;
 import com.mustafak01.foundoutbackendrestaurants.service.abstracts.LocationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,5 +26,15 @@ public class LocationController {
     @GetMapping("/getAll")
     public ResponseEntity<List<LocationModel>> getAllAddresses(){
         return this.locationService.getAll();
+    }
+
+    @GetMapping("/getByRestaurantNameWithDto")
+    public ResponseEntity<LocationDto> getByRestaurantNameWithDto(String restaurantName){
+        return this.locationService.getByRestaurantNameWithDto(restaurantName);
+    }
+
+    @GetMapping("/getAllWithDto")
+    public ResponseEntity<List<LocationDto>> getAllWithDto(){
+        return this.locationService.getAllWithDto();
     }
 }
