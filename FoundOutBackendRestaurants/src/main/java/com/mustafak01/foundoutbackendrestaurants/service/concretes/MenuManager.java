@@ -3,6 +3,7 @@ package com.mustafak01.foundoutbackendrestaurants.service.concretes;
 import com.mustafak01.foundoutbackendrestaurants.model.MenuModel;
 import com.mustafak01.foundoutbackendrestaurants.model.MenuServicingCategoryModel;
 import com.mustafak01.foundoutbackendrestaurants.model.UserModel;
+import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuDtoWithCategoryName;
 import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuModelDtoWithUserIdCategoryNameAndMenuName;
 import com.mustafak01.foundoutbackendrestaurants.model.requests.AddMenuRequest;
 import com.mustafak01.foundoutbackendrestaurants.repository.MenuRepository;
@@ -53,6 +54,13 @@ public class MenuManager implements MenuService {
     @Override
     public ResponseEntity<List<MenuModelDtoWithUserIdCategoryNameAndMenuName>> getMenusByUserId(Long id) {
         return ResponseEntity.ok().body(this.menuRepository.getMenuModelAndCategoryNameWithUserId(id));
+    }
+
+    public ResponseEntity<List<MenuDtoWithCategoryName>> getMenusInfoByTitle(String title){
+        UserModel userModel = this.userRepository.findByTitle(title);
+        List<MenuDtoWithCategoryName> menuDtoWithCategoryName =
+                this.menuRepository.getMenusInfoByUserId(userModel.getId());
+        return ResponseEntity.ok().body(menuDtoWithCategoryName);
     }
 
     @Override

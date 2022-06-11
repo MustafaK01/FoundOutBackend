@@ -1,6 +1,7 @@
 package com.mustafak01.foundoutbackendrestaurants.service.abstracts;
 
 import com.mustafak01.foundoutbackendrestaurants.model.MenuModel;
+import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuDtoWithCategoryName;
 import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuModelDtoWithUserIdCategoryNameAndMenuName;
 import com.mustafak01.foundoutbackendrestaurants.model.requests.AddMenuRequest;
 import org.springframework.http.ResponseEntity;
@@ -17,5 +18,7 @@ public interface MenuService {
     ResponseEntity<List<MenuModelDtoWithUserIdCategoryNameAndMenuName>> getMenusByUserId(Long id);
 
     ResponseEntity<Void>deleteByMenuId(Long id);
+
+    ResponseEntity<List<MenuDtoWithCategoryName>> getMenusInfoByTitle(String title);
 
 }
