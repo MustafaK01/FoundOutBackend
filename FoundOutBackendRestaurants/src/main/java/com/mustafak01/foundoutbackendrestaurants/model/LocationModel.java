@@ -17,16 +17,16 @@ public class LocationModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "location_id",unique = true)
+    @Column(name = "location_id")
     private Long id;
 
     @Column(name = "location_longitude")
     private Double longitude;
 
-    @Column(name = "location_latitude")
+    @Column(name = "location_latitude",unique = true)
     private Double latitude;
 
-    @Column(name = "location_address")
+    @Column(name = "location_address",unique = true)
     private String address;
 
     @Column(name="restaurant_name",unique = true)

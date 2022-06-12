@@ -39,8 +39,8 @@ public class LocationManager implements LocationService {
     }
 
     @Override
-    public ResponseEntity<LocationDto> getByRestaurantNameWithDto(String restaurantNam) {
-        return ResponseEntity.ok().body(this.locationRepository.getByRestaurantNameWithDto(restaurantNam));
+    public ResponseEntity<LocationDto> getByRestaurantNameWithDto(String restaurantName) {
+        return ResponseEntity.ok().body(this.locationRepository.getByRestaurantNameWithDto(restaurantName));
     }
 
     @Override
