@@ -20,7 +20,7 @@ public class UserModel{
     @Column(name = "user_restaurant_id",unique = true)
     private Long id;
 
-    @Column(name = "restaurant_owner_identitynumber")
+    @Column(name = "restaurant_owner_identitynumber",unique = true)
     private String restaurantOwnerIdentityNumber;
 
     @Column(name = "user_restaurant_email",unique = true)

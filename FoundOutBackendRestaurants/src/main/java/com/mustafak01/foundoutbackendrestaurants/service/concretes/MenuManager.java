@@ -37,6 +37,7 @@ public class MenuManager implements MenuService {
                 findMenuServicingCategoryModelByCategoryName(addMenuRequest.getCategoryName());
         menuModel.setId(null);
         menuModel.setExplanation(addMenuRequest.getExplanation());
+        System.out.println(addMenuRequest.getMenuName());
         menuModel.setMenuName(addMenuRequest.getMenuName());
         menuModel.setMenuServicingCategoryModel(menuServicingCategoryModel);
         menuModel.setUserModel(userModel);
