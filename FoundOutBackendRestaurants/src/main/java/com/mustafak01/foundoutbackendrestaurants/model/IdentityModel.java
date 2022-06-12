@@ -25,6 +25,6 @@ public class IdentityModel {
     @Column(name = "restaurant_lastname_owner")
     private String lastName;
 
-    @Column(name = "restaurant_identitynumber_owner")
+    @Column(name = "restaurant_identitynumber_owner",unique = true)
     private String identityNumber;
 }
