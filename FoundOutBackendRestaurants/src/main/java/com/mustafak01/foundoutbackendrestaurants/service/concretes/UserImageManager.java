@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class UserImageManager implements UserImageService {
 
     UserRepository userRepository;
@@ -27,14 +29,20 @@ public class UserImageManager implements UserImageService {
     @Override
     public ResponseEntity<ImageUploadResponse> uploadImage(MultipartFile file, Long id) throws IOException {
         Optional<UserModel> userModel = this.userRepository.findById(id);
+        //the only picture belonging to the user will be deleted and a new one will be added
+        this.deleteImage(userModel.get().getId());
+        //userImageRepository.deleteByUserModel_Id(userModel.get().getId());
         userImageRepository.save(UserModelImage.builder()
                 .userModel(userModel.get())
                 .name(file.getOriginalFilename())
                 .type(file.getContentType())
                 .image(ImageUtility.compressImage(file.getBytes())).build());
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(new ImageUploadResponse("Resim Başarıyla Eklendi : " +
-                        file.getOriginalFilename()));
+        return ResponseEntity.ok().body(new ImageUploadResponse("Resim Başarıyla Eklendi : " +
+                        file.getOriginalFilename(),true));
+    }
+
+    public void deleteImage(Long id){
+        userImageRepository.deleteByUserModel_Id(id);
     }
 
 }

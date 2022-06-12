@@ -20,10 +20,10 @@ public class UserModelImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userImageId;
 
-    @Column(name = "user_image_name")
+    @Column(name = "user_image_name", unique = false)
     private String name;
 
-    @Column(name = "user_image_type")
+    @Column(name = "user_image_type", unique = false)
     private String type;
 
     @Column(name = "user_image", unique = false, nullable = false, length = 100000)

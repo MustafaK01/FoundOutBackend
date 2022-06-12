@@ -13,7 +13,8 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/api/users/images")
 @AllArgsConstructor
-public class UserImageController { //Management sisteminden gelecek olan resimler için
+public class UserImageController {
+    //Management sisteminden gelecek olan resimler için
 
     UserImageService userImageService;
 
@@ -22,5 +23,7 @@ public class UserImageController { //Management sisteminden gelecek olan resimle
             ,@PathVariable("id") Long id) throws IOException {
         return this.userImageService.uploadImage(file,id);
     }
+
+
 
 }
