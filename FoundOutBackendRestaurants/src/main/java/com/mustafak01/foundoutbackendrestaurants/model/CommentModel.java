@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -24,6 +25,9 @@ public class CommentModel {
 
     @Column(name = "user_name",nullable = false)
     private String userName;
+
+    @Column(name = "created_date")
+    private String createdDate;
 
     @ManyToOne
     @JoinColumn(name = "user_restaurant_id")

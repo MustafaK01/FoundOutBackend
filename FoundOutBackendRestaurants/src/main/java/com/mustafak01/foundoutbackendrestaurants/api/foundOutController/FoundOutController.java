@@ -1,10 +1,7 @@
 package com.mustafak01.foundoutbackendrestaurants.api.foundOutController;
 
 
-import com.mustafak01.foundoutbackendrestaurants.model.dtos.LocationDto;
-import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuDtoWithCategoryName;
-import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingImageDtoForMobile;
-import com.mustafak01.foundoutbackendrestaurants.model.dtos.RestaurantsDto;
+import com.mustafak01.foundoutbackendrestaurants.model.dtos.*;
 import com.mustafak01.foundoutbackendrestaurants.model.requests.CommentRequest;
 import com.mustafak01.foundoutbackendrestaurants.service.abstracts.*;
 import lombok.AllArgsConstructor;
@@ -30,19 +27,24 @@ public class FoundOutController {
         return this.menuService.getMenusInfoByTitle(title);
     }
 
-    @GetMapping("/location/getByRestaurantNameWithDto")
+    @GetMapping("/location/get/byRestaurantName")
     public ResponseEntity<LocationDto> getByRestaurantNameWithDto(String restaurantName){
         return this.locationService.getByRestaurantNameWithDto(restaurantName);
     }
 
-    @GetMapping("/location/getAllWithDto")
+    @GetMapping("/location/get/all")
     public ResponseEntity<List<LocationDto>> getAllWithDto(){
         return this.locationService.getAllWithDto();
     }
 
-    @GetMapping(path = {"/restaurant/get/info/dto"})
-    public ResponseEntity<RestaurantsDto> getByDto(String restaurantName) throws IOException {
+    @GetMapping(path = {"/restaurant/get/info/{restaurantName}"})
+    public ResponseEntity<List<RestaurantsDto>> getByDto(@PathVariable("restaurantName") String restaurantName) throws IOException {
         return this.userService.getByRestaurantName(restaurantName);
+    }
+
+    @GetMapping(path = {"/restaurant/get/all"})
+    public ResponseEntity<List<RestaurantsDto>> getAll() throws IOException {
+        return this.userService.getAll();
     }
 
 
@@ -64,6 +66,10 @@ public class FoundOutController {
     @PostMapping("/comment/submit")
     public ResponseEntity<Void> submitComment(@RequestBody CommentRequest commentRequest ){
         return this.commentService.save(commentRequest);
+    }
+    @GetMapping("/comment/get/{restaurantName}")
+    public ResponseEntity<List<CommentDto>> getComments(@PathVariable("restaurantName")String restaurantName){
+        return this.commentService.getCommentModelByRestaurantName(restaurantName);
     }
 
 }
