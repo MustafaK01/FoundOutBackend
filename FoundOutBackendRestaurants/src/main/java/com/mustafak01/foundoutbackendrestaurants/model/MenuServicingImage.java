@@ -21,10 +21,10 @@ public class MenuServicingImage {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long servicingImageId;
 
-	@Column(name = "servicing_image_name")
+	@Column(name = "servicing_image_name", unique = false)
 	private String name;
 
-	@Column(name = "servicing_image_type")
+	@Column(name = "servicing_image_type", unique = false)
 	private String type;
 
 	@Column(name = "servicing_image", unique = false, nullable = false, length = 100000)

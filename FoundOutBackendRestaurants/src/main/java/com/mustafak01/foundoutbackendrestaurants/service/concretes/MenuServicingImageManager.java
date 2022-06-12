@@ -44,7 +44,7 @@ public class MenuServicingImageManager implements MenuServicingImageService {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new ImageUploadResponse("Resim Başarıyla Eklendi : " +
-                        file.getOriginalFilename()));
+                        file.getOriginalFilename(),true));
     }
 
     @Override
@@ -65,16 +65,17 @@ public class MenuServicingImageManager implements MenuServicingImageService {
 
     @Override
         public ResponseEntity<MenuServicingWithImageDto> getMenuServicingImageByMenuServicingId(Long id) {
-        final List<MenuServicingWithImageDto> servicingImage = servicingImageRepository.getMenuServicingImageByMenuServicingId(id);
+//        final List<MenuServicingWithImageDto> servicingImage = servicingImageRepository.getMenuServicingImageByMenuServicingId(id);
+        final MenuServicingWithImageDto servicingImage = servicingImageRepository.getMenuServicingImageByMenuServicingId(id);
+        final List<MenuServicingWithImageDto> servicingImages = new ArrayList<>();
         if (servicingImage != null) {
-            for (MenuServicingWithImageDto i : servicingImage) {
-                return ResponseEntity.ok().body(MenuServicingWithImageDto.builder().servicingId(i.getServicingId())
-                        .servicingName(i.getServicingName())
-                        .servicingImageId(i.getServicingImageId())
-                        .servicingPrice(i.getServicingPrice())
-                        .menuId(i.getMenuId())
-                        .image(ImageUtility.decompressImage(i.getImage())).build());
-            }
+            servicingImages.add(MenuServicingWithImageDto.builder().servicingId(servicingImage.getServicingId())
+                        .servicingName(servicingImage.getServicingName())
+                        .servicingImageId(servicingImage.getServicingImageId())
+                        .servicingPrice(servicingImage.getServicingPrice())
+                        .menuId(servicingImage.getMenuId())
+                        .image(ImageUtility.decompressImage(servicingImage.getImage())).build());
+            return new ResponseEntity(servicingImages, HttpStatus.OK);
         }
             return new ResponseEntity("Bad Request", HttpStatus.BAD_REQUEST);
     }
