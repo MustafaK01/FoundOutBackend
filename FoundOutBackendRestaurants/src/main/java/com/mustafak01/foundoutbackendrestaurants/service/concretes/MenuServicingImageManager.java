@@ -5,14 +5,13 @@ import com.mustafak01.foundoutbackendrestaurants.model.MenuServicingModel;
 import com.mustafak01.foundoutbackendrestaurants.model.UserModel;
 import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingImageDtoForMobile;
 import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingWithImageDto;
-import com.mustafak01.foundoutbackendrestaurants.model.response.ImageUploadResponse;
+import com.mustafak01.foundoutbackendrestaurants.model.response.GeneralResponse;
 import com.mustafak01.foundoutbackendrestaurants.repository.MenuServicingImageRepository;
 import com.mustafak01.foundoutbackendrestaurants.repository.MenuServicingRepository;
 import com.mustafak01.foundoutbackendrestaurants.repository.UserRepository;
 import com.mustafak01.foundoutbackendrestaurants.service.abstracts.MenuServicingImageService;
 import com.mustafak01.foundoutbackendrestaurants.utils.ImageUtility;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +33,7 @@ public class MenuServicingImageManager implements MenuServicingImageService {
     UserRepository userRepository;
 
     @Override
-    public ResponseEntity<ImageUploadResponse> uploadImage(MultipartFile file,Long id) throws IOException {
+    public ResponseEntity<GeneralResponse> uploadImage(MultipartFile file, Long id) throws IOException {
         Optional<MenuServicingModel> menuServicingModel = this.menuServicingRepository.findById(id);
         servicingImageRepository.save(MenuServicingImage.builder()
                 .menuServicingModel(menuServicingModel.get())
@@ -43,7 +42,7 @@ public class MenuServicingImageManager implements MenuServicingImageService {
                 .image(ImageUtility.compressImage(file.getBytes())).build());
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new ImageUploadResponse("Resim Başarıyla Eklendi : " +
+                .body(new GeneralResponse("Resim Başarıyla Eklendi : " +
                         file.getOriginalFilename(),true));
     }
 

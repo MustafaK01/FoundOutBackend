@@ -1,10 +1,10 @@
 package com.mustafak01.foundoutbackendrestaurants.model.response;
-public class ImageUploadResponse {
+public class GeneralResponse {
 
     private String message;
     private boolean isSuccess;
 
-    public ImageUploadResponse(String message, boolean isSuccess) {
+    public GeneralResponse(String message, boolean isSuccess) {
         this.message = message;
         this.isSuccess = isSuccess;
     }

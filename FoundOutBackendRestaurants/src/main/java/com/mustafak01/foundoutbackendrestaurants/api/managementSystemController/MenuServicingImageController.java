@@ -1,12 +1,10 @@
 package com.mustafak01.foundoutbackendrestaurants.api.managementSystemController;
 
 
-import com.mustafak01.foundoutbackendrestaurants.model.MenuServicingImage;
 import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingWithImageDto;
-import com.mustafak01.foundoutbackendrestaurants.model.response.ImageUploadResponse;
+import com.mustafak01.foundoutbackendrestaurants.model.response.GeneralResponse;
 import com.mustafak01.foundoutbackendrestaurants.service.abstracts.MenuServicingImageService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,8 +20,8 @@ public class MenuServicingImageController {
     MenuServicingImageService menuServicingImageService;
 
     @PostMapping("/upload/image/{id}")
-    public ResponseEntity<ImageUploadResponse> uplaodImage(@RequestParam("image") MultipartFile file
-            ,@PathVariable("id") Long id) throws IOException {
+    public ResponseEntity<GeneralResponse> uplaodImage(@RequestParam("image") MultipartFile file
+            , @PathVariable("id") Long id) throws IOException {
         return this.menuServicingImageService.uploadImage(file,id);
     }
 

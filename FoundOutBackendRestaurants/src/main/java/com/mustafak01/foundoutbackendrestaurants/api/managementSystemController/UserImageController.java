@@ -1,7 +1,7 @@
 package com.mustafak01.foundoutbackendrestaurants.api.managementSystemController;
 
 
-import com.mustafak01.foundoutbackendrestaurants.model.response.ImageUploadResponse;
+import com.mustafak01.foundoutbackendrestaurants.model.response.GeneralResponse;
 import com.mustafak01.foundoutbackendrestaurants.service.abstracts.UserImageService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +19,8 @@ public class UserImageController {
     UserImageService userImageService;
 
     @PostMapping("/upload/image/{id}")
-    public ResponseEntity<ImageUploadResponse> uplaodImage(@RequestParam("image") MultipartFile file
-            ,@PathVariable("id") Long id) throws IOException {
+    public ResponseEntity<GeneralResponse> uplaodImage(@RequestParam("image") MultipartFile file
+            , @PathVariable("id") Long id) throws IOException {
         return this.userImageService.uploadImage(file,id);
     }
 
