@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CommentDto {
 
+    private Long commentId;
     private String comment;
     private String userName;
     private String createdDate;
+    private String restaurantName;
+    private String restaurantAddress;
 
 }

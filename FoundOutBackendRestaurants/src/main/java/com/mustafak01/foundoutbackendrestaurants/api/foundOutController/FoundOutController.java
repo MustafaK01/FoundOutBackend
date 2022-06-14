@@ -3,6 +3,7 @@ package com.mustafak01.foundoutbackendrestaurants.api.foundOutController;
 
 import com.mustafak01.foundoutbackendrestaurants.model.dtos.*;
 import com.mustafak01.foundoutbackendrestaurants.model.requests.CommentRequest;
+import com.mustafak01.foundoutbackendrestaurants.model.response.GeneralResponse;
 import com.mustafak01.foundoutbackendrestaurants.service.abstracts.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -64,12 +65,26 @@ public class FoundOutController {
     }
 
     @PostMapping("/comment/submit")
-    public ResponseEntity<Void> submitComment(@RequestBody CommentRequest commentRequest ){
+    public ResponseEntity<GeneralResponse> submitComment(@RequestBody CommentRequest commentRequest ){
         return this.commentService.save(commentRequest);
     }
     @GetMapping("/comment/get/{restaurantName}")
     public ResponseEntity<List<CommentDto>> getComments(@PathVariable("restaurantName")String restaurantName){
         return this.commentService.getCommentModelByRestaurantName(restaurantName);
     }
+
+    @GetMapping("/comment/get/byUserNameAndRestaurantName/{restaurantName}")
+    public ResponseEntity<List<CommentDto>> getCommentsByRestaurantNameAndUserName(@PathVariable("restaurantName")String restaurantName, String userName){
+        return this.commentService.getCommentModelByRestaurantNameAndUserName(restaurantName,userName);
+    }
+    @GetMapping("/comment/get/byUserName/{userName}")
+    public ResponseEntity<List<CommentDto>> getCommentsByUserName(@PathVariable("userName") String userName){
+        return this.commentService.getCommentModelByUserName(userName);
+    }
+    @DeleteMapping("/comment/delete/comment/byId/{userName}")
+    public ResponseEntity<GeneralResponse> deleteCommentsByUserNameCommentAndId(Long id,@PathVariable("userName") String userName){
+        return this.commentService.deleteCommentByUserNameAndCommentId(id,userName);
+    }
+
 
 }
