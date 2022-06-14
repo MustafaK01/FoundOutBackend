@@ -27,8 +27,9 @@ public interface MenuRepository extends JpaRepository<MenuModel,Long> {
             + "FROM MenuModel menuModel join menuModel.menuServicingCategoryModel categoryModel join menuModel.userModel userModel where menuModel.id=:id")
     MenuModelDtoWithUserIdCategoryNameAndMenuName getMenuNameByMenuId(@Param("id") Long id);
 
-    @Query("SELECT new com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuDtoWithCategoryName(menuModel.id,menuModel.menuName,menuModel.explanation,menuServicings.size,categoryModel.categoryName)"
-            + "FROM MenuModel menuModel join menuModel.menuServicingCategoryModel categoryModel join menuModel.menuServicingModels menuServicings join menuModel.userModel userModel where userModel.id=:id")
+//    ,menuServicings.size
+    @Query("SELECT new com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuDtoWithCategoryName(menuModel.id,menuModel.menuName,menuModel.explanation,categoryModel.categoryName)"
+            + "FROM MenuModel menuModel join menuModel.menuServicingCategoryModel categoryModel join menuModel.userModel userModel where userModel.id=:id")
     List<MenuDtoWithCategoryName> getMenusInfoByUserId(@Param("id") Long id);
 
 
