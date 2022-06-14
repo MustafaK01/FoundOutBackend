@@ -1,19 +1,27 @@
 package com.mustafak01.foundoutbackendrestaurants.service.concretes;
 
-import com.mustafak01.foundoutbackendrestaurants.mernis.KPSPublicSoap;
 import com.mustafak01.foundoutbackendrestaurants.model.UserModel;
+import com.mustafak01.foundoutbackendrestaurants.model.UserModelImage;
 import com.mustafak01.foundoutbackendrestaurants.model.requests.RegistrationRequest;
 import com.mustafak01.foundoutbackendrestaurants.model.response.AuthResponseRegister;
+import com.mustafak01.foundoutbackendrestaurants.repository.UserImageRepository;
 import com.mustafak01.foundoutbackendrestaurants.repository.UserRepository;
 import com.mustafak01.foundoutbackendrestaurants.service.abstracts.IdentityService;
 import com.mustafak01.foundoutbackendrestaurants.service.abstracts.LocationService;
 import com.mustafak01.foundoutbackendrestaurants.service.abstracts.RegistrationService;
+import com.mustafak01.foundoutbackendrestaurants.utils.ImageUtility;
 import com.mustafak01.foundoutbackendrestaurants.utils.RegistrationUtilityService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -25,6 +33,8 @@ public class RegistrationManager implements RegistrationService {
 
     private PasswordEncoder passwordEncoder;
     private UserRepository userRepository;
+    private UserImageRepository userImageRepository;
+
 
     @Override
     public Boolean checkUserIfExists(String identityNumber, String email) {
@@ -37,6 +47,7 @@ public class RegistrationManager implements RegistrationService {
     //This code will be shortened
     public ResponseEntity<AuthResponseRegister> saveUser(RegistrationRequest registrationRequest) throws Exception {
         AuthResponseRegister authResponse = new AuthResponseRegister();
+        MultipartFile multipartFile = new MockMultipartFile("defaultImage.jpg", new FileInputStream(new File("/home/mustafak01/FoldersAndFiles/javaWorkspace/FoundOutBackendRestaurants/src/main/java/com/mustafak01/foundoutbackendrestaurants/defaultImage.jpg")));
 
         if (!(checkUserIfExists(registrationRequest.getRestaurantOwnerIdentityNumber()
                 , registrationRequest.getEmail()))) {
@@ -65,39 +76,35 @@ public class RegistrationManager implements RegistrationService {
 //                return new ResponseEntity<>(authResponse, HttpStatus.NOT_ACCEPTABLE);//406
 //            }
 
-            UserModel user = new UserModel();
-            user.setEmail(registrationRequest.getEmail());
-            user.setTitle(registrationRequest.getTitle());
-            user.setRestaurantOwnerIdentityNumber(registrationRequest.getRestaurantOwnerIdentityNumber());
-            user.setPhoneNumber(registrationRequest.getPhoneNumber());
+            Optional<UserModel> user = Optional.of(new UserModel());
+            user.get().setEmail(registrationRequest.getEmail());
+            user.get().setTitle(registrationRequest.getTitle());
+            user.get().setRestaurantOwnerIdentityNumber(registrationRequest.getRestaurantOwnerIdentityNumber());
+            user.get().setPhoneNumber(registrationRequest.getPhoneNumber());
 
             this.locationService.save(registrationRequest.getLongitude()
                     , registrationRequest.getLatitude()
                     , registrationRequest.getAddress()
                     , registrationRequest.getTitle());
 
+        this.userImageRepository.save(UserModelImage.builder()
+                .userModel(user.get())
+                .name(multipartFile.getName())
+                .type(multipartFile.getContentType())
+                .image(ImageUtility.compressImage(multipartFile.getBytes())).build());
+
+
             this.identityService.save(registrationRequest.getRestaurantOwnerName().toUpperCase(),
                     registrationRequest.getRestaurantOwnerLastName().toUpperCase(),
                     registrationRequest.getRestaurantOwnerIdentityNumber());
-            user.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
+            user.get().setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
 
             authResponse.setSuccess(true);
             authResponse.setMessage("User Registered");
-            userRepository.save(user);
+            userRepository.save(user.get());
             return new ResponseEntity<>(authResponse, HttpStatus.CREATED);
         }
+
+
 }
 
-
-
-
-
-/*
-    private RegistrationUtilityService registrationUtilityService;
-
-        if((!registrationUtilityService.isTrueEmail(registrationRequest.getEmail())
-                || !registrationUtilityService.isTruePhoneNumber(registrationRequest.getPhoneNumber()))){
-                authResponse.setMessage("Error");
-                authResponse.setSuccess(false);
-                return new ResponseEntity<>(authResponse, HttpStatus.BAD_REQUEST);//400
-        }*/
