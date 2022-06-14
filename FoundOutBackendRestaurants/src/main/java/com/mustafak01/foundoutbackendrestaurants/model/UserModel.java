@@ -41,8 +41,8 @@ public class UserModel{
 //    @OneToMany(mappedBy = "userModel",cascade = CascadeType.ALL,orphanRemoval = true)
 //    List<CommentModel> commentModels;
 
-
-    @OneToMany(mappedBy = "userModel",cascade = CascadeType.ALL,orphanRemoval = true)
+//,cascade = CascadeType.ALL
+    @OneToMany(mappedBy = "userModel",orphanRemoval = true)
     List<UserModelImage> userModelImages;
 
 /*    @OneToOne(mappedBy = "userModel",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)

@@ -29,7 +29,7 @@ public class UserModelImage {
     @Column(name = "user_image", unique = false, nullable = false, length = 100000)
     private byte[] image;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="user_restaurant_id")
     UserModel userModel;
 

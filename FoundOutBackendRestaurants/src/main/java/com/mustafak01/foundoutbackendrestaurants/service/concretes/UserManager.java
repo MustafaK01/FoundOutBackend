@@ -4,6 +4,7 @@ import com.mustafak01.foundoutbackendrestaurants.model.UserModel;
 import com.mustafak01.foundoutbackendrestaurants.model.dtos.MenuServicingWithImageDto;
 import com.mustafak01.foundoutbackendrestaurants.model.dtos.RestaurantsDto;
 import com.mustafak01.foundoutbackendrestaurants.model.dtos.UserDto;
+import com.mustafak01.foundoutbackendrestaurants.model.response.GeneralResponse;
 import com.mustafak01.foundoutbackendrestaurants.repository.UserRepository;
 import com.mustafak01.foundoutbackendrestaurants.service.abstracts.UserService;
 import com.mustafak01.foundoutbackendrestaurants.utils.ImageUtility;
@@ -28,10 +29,15 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public ResponseEntity<List<RestaurantsDto>> getByRestaurantName(String name) {
-        UserModel userModel = this.userRepository.findByTitle(name);
-        final List<RestaurantsDto> restaurantsDto = this.userRepository.getAllByRestaurantIdWithDto(userModel.getId());
-        return getListRestaurantsDto(restaurantsDto);
+    public ResponseEntity<List<RestaurantsDto>> getByRestaurantName(String name)  {
+        try {
+            UserModel userModel = this.userRepository.findByTitle(name);
+            final List<RestaurantsDto> restaurantsDto = this.userRepository.getAllByRestaurantIdWithDto(userModel.getId());
+            return getListRestaurantsDto(restaurantsDto);
+        }catch (Exception e){
+            System.err.println(e);
+            throw e;
+        }
     }
 
     @Override
