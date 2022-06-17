@@ -1,5 +1,6 @@
 package com.mustafak01.foundoutbackendrestaurants.service.concretes;
 
+import com.mustafak01.foundoutbackendrestaurants.mernis.KPSPublicSoap;
 import com.mustafak01.foundoutbackendrestaurants.model.UserModel;
 import com.mustafak01.foundoutbackendrestaurants.model.UserModelImage;
 import com.mustafak01.foundoutbackendrestaurants.model.requests.RegistrationRequest;
@@ -37,8 +38,9 @@ public class RegistrationManager implements RegistrationService {
 
 
     @Override
-    public Boolean checkUserIfExists(String identityNumber, String email) {
-        if (userRepository.findByEmail(email) != null || identityService.getByIdentityNumber(identityNumber) != null) {
+    public Boolean checkUserIfExists(String identityNumber, String email,String title) {
+        if (userRepository.findByEmail(email) != null || identityService.getByIdentityNumber(identityNumber) != null
+        || userRepository.findByTitle(title)!=null) {
             return false;//
         }
         return true;
@@ -47,10 +49,10 @@ public class RegistrationManager implements RegistrationService {
     //This code will be shortened
     public ResponseEntity<AuthResponseRegister> saveUser(RegistrationRequest registrationRequest) throws Exception {
         AuthResponseRegister authResponse = new AuthResponseRegister();
-        MultipartFile multipartFile = new MockMultipartFile("defaultImage.jpg", new FileInputStream(new File("/home/mustafak01/FoldersAndFiles/javaWorkspace/FoundOutBackendRestaurants/src/main/java/com/mustafak01/foundoutbackendrestaurants/defaultImage.jpg")));
+        MultipartFile multipartFile = new MockMultipartFile("defaultImage.jpg", new FileInputStream(new File("src/main/java/com/mustafak01/foundoutbackendrestaurants/defaultImage.jpg")));
 
         if (!(checkUserIfExists(registrationRequest.getRestaurantOwnerIdentityNumber()
-                , registrationRequest.getEmail()))) {
+                , registrationRequest.getEmail(), registrationRequest.getTitle()))) {
             authResponse.setMessage("Error");
             authResponse.setSuccess(false);
             return new ResponseEntity<>(authResponse, HttpStatus.UNPROCESSABLE_ENTITY);//422
@@ -61,7 +63,8 @@ public class RegistrationManager implements RegistrationService {
             authResponse.setMessage("Error");
             authResponse.setSuccess(false);
             return new ResponseEntity<>(authResponse, HttpStatus.BAD_REQUEST);
-        };//400
+        }
+        ;//400
 
 //            KPSPublicSoap kpsPublicSoap = new KPSPublicSoap();
 //            Boolean isExists = kpsPublicSoap.TCKimlikNoDogrula(
@@ -69,42 +72,37 @@ public class RegistrationManager implements RegistrationService {
 //                    ,registrationRequest.getRestaurantOwnerName().toUpperCase()
 //                    ,registrationRequest.getRestaurantOwnerLastName().toUpperCase()
 //                    ,registrationRequest.getBirthYear());
-
+//
 //            if (!isExists) {
 //                authResponse.setMessage("Böyle Bir Kişi Bulunmuyor");
 //                authResponse.setSuccess(false);
 //                return new ResponseEntity<>(authResponse, HttpStatus.NOT_ACCEPTABLE);//406
 //            }
-
+        if ((checkUserIfExists(registrationRequest.getRestaurantOwnerIdentityNumber()
+                , registrationRequest.getEmail(), registrationRequest.getTitle()))) {
             Optional<UserModel> user = Optional.of(new UserModel());
             user.get().setEmail(registrationRequest.getEmail());
             user.get().setTitle(registrationRequest.getTitle());
             user.get().setRestaurantOwnerIdentityNumber(registrationRequest.getRestaurantOwnerIdentityNumber());
             user.get().setPhoneNumber(registrationRequest.getPhoneNumber());
-
             this.locationService.save(registrationRequest.getLongitude()
                     , registrationRequest.getLatitude()
                     , registrationRequest.getAddress()
                     , registrationRequest.getTitle());
-
-        this.userImageRepository.save(UserModelImage.builder()
-                .userModel(user.get())
-                .name(multipartFile.getName())
-                .type(multipartFile.getContentType())
-                .image(ImageUtility.compressImage(multipartFile.getBytes())).build());
-
-
+            this.userImageRepository.save(UserModelImage.builder()
+                    .userModel(user.get())
+                    .name(multipartFile.getName())
+                    .type(multipartFile.getContentType())
+                    .image(ImageUtility.compressImage(multipartFile.getBytes())).build());
             this.identityService.save(registrationRequest.getRestaurantOwnerName().toUpperCase(),
                     registrationRequest.getRestaurantOwnerLastName().toUpperCase(),
                     registrationRequest.getRestaurantOwnerIdentityNumber());
             user.get().setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
-
             authResponse.setSuccess(true);
             authResponse.setMessage("User Registered");
             userRepository.save(user.get());
             return new ResponseEntity<>(authResponse, HttpStatus.CREATED);
         }
-
-
+        return new ResponseEntity<>(authResponse, HttpStatus.UNPROCESSABLE_ENTITY);//422
+    }
 }
-

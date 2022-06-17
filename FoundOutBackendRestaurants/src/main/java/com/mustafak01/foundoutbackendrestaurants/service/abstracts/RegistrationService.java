@@ -5,6 +5,6 @@ import com.mustafak01.foundoutbackendrestaurants.model.response.AuthResponseRegi
 import org.springframework.http.ResponseEntity;
 
 public interface RegistrationService {
-    Boolean checkUserIfExists(String username,String email);
+    Boolean checkUserIfExists(String username,String email,String title);
     ResponseEntity<AuthResponseRegister> saveUser(RegistrationRequest registrationRequest) throws Exception;
 }
