@@ -26,9 +26,7 @@ public class UserImageManager implements UserImageService {
     @Override
     public ResponseEntity<GeneralResponse> uploadImage(MultipartFile file, Long id) throws IOException {
         Optional<UserModel> userModel = this.userRepository.findById(id);
-        //the only picture belonging to the user will be deleted and a new one will be added
         this.deleteImage(userModel.get().getId());
-        //userImageRepository.deleteByUserModel_Id(userModel.get().getId());
         userImageRepository.save(UserModelImage.builder()
                 .userModel(userModel.get())
                 .name(file.getOriginalFilename())
