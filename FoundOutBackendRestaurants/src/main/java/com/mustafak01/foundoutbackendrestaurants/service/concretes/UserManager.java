@@ -50,16 +50,17 @@ public class UserManager implements UserService {
         final List<RestaurantsDto> restaurantsDtos = new ArrayList<>();
         if (restaurantsDto.size() != 0) {
             for (RestaurantsDto i : restaurantsDto) {
-                restaurantsDtos.add(RestaurantsDto.builder()
-                        .category(i.getCategory())
-                        .name(i.getName())
-                        .price(i.getPrice())
-                        .image(ImageUtility.decompressImage(i.getImage())).build());
+                if(i.getCategory()!=null||i.getPrice()!=null){
+                    restaurantsDtos.add(RestaurantsDto.builder()
+                            .category(i.getCategory())
+                            .name(i.getName())
+                            .price(i.getPrice())
+                            .image(ImageUtility.decompressImage(i.getImage())).build());
+                }
             }
             return new ResponseEntity(restaurantsDtos, HttpStatus.ACCEPTED);
-
         }
-        return new ResponseEntity("Bad Request", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(" ", HttpStatus.OK);
     }
 
     @Override
